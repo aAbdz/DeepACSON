@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Thu Sep 27 14:57:45 2018
-
-@author: aliabd
-"""
 
 import numpy as np
 import plane_rotation as pr
@@ -526,7 +521,6 @@ def object_analysis(obj_inx, obj_sz, final_skeleton):
     
     skel_length = np.array([len(i) for i in final_skeleton])
     if max(skel_length) < 150:
-        #return decomposed_objs, decomposed_skeletons, decomposed_quants
         return [obj_inx], decomposed_skeletons, decomposed_quants
     
     main_skeletons = skeleton_main_branch(final_skeleton)
@@ -546,11 +540,9 @@ def object_analysis(obj_inx, obj_sz, final_skeleton):
             for j in obj_inx:
                 cropAx[tuple(j)] = 1
             
-            #cs_quant = cross_section(cropAx, parametrized_skel, g_radius=15, g_res=0.25)
-            
             decomposed_objs.append(obj_inx), 
             decomposed_skeletons.append(parametrized_skel)
-            #decomposed_quants.append(cs_quant)
+            
         
         else:
             
@@ -587,15 +579,11 @@ def object_analysis(obj_inx, obj_sz, final_skeleton):
                     
                     if detect_main_obj(obj, corrected_skeleton):
                         
-                        #cs_quant = cross_section(obj, corrected_skeleton, g_radius=15, g_res=0.25)
-                        
-                        #decomposed_objs.append(obj)
                         decomposed_objs.append(region.coords)
                         decomposed_skeletons.append(corrected_skeleton)
-                        #decomposed_quants.append(cs_quant)
-                        
+                                                
                         break
-    return decomposed_objs, decomposed_skeletons, [] #decomposed_quants
+    return decomposed_objs, decomposed_skeletons, []
     
     
 

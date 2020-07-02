@@ -1,10 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Mon Aug 06 10:28:52 2018
-
-@author: aliabd
-"""
-
 
 import numpy as np
 from coord_conv import cart2pol, pol2cart

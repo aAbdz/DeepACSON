@@ -1,20 +1,8 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Mon Jun 18 16:58:03 2018
-
-@author: aliabd
-"""
-
 
 import numpy as np
 import skfmm
 import sys
-#import scipy.io
-#import pylab as plt
-
-
-
-
 
 def discrete_shortest_path(D,start_point):
        

@@ -1,18 +1,10 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Wed Aug 01 18:34:21 2018
-
-@author: aliabd
-"""
-
 
 import numpy as np
 from coord_conv import cart2pol, pol2cart
 
 def polar_parametrization(curve):
-    #fig, ax=plt.subplots() 
-    #ax.plot(curve[:,1], curve[:,0], '-', linewidth=2, color='firebrick')
-    
+
     r,phi = cart2pol(curve[:,1]-60,curve[:,0]-60)
     
     s=phi<0 

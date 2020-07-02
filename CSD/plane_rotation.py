@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Thu Jul 12 11:49:19 2018
-
-@author: aliabd
-"""
 
 import numpy as np
 
@@ -18,6 +13,7 @@ def rotation_matrix_3D(vector, theta):
     
     "counterclockwise rotation about a unit vector by theta radians"
     "Euler-Rodrigues formula"
+
     a=np.cos(theta/2.0)
     b,c,d=-vector*np.sin(theta/2.0)
     aa,bb,cc,dd=a**2, b**2, c**2, d**2

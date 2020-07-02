@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Tue Oct 02 11:04:00 2018
-
-@author: aliabd
-"""
 
 import numpy as np
 import h5py
@@ -16,8 +11,8 @@ import traceback
 from time import time
 
 
-read_dir_1 = '/home/aliabd/Project/LMComp_Proj/DeepAcson/FCN/tests/'
-read_dir_2 = '/home/aliabd/Project/LMComp_Proj/DeepAcson/FCN/tests/'
+read_dir_1 = ''
+read_dir_2 = ''
 
 read_fname_axon = 'mat_obj.mat'
 read_fname_skeleton = 'all_skeletons'
