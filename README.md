@@ -15,6 +15,9 @@ We used BM4D filter to denoise 3D-electron microscopy images: you can download B
 Install Elktronn as instructed in https://github.com/ELEKTRONN. The network can be trained with the train.py script, which expects .h5 files as training materials.
 
 # Inference
-Assign the address to .mdl file. Use the inference.py script for semantic segmentation of ultrastructures.
+Use the inference.py script for semantic segmentation of ultrastructures.
+
+# Instance segmentation
+The cylindrical shape decomposition algorithm is currently supported for Python 2 and requires NumPy, SciPy, Scikit-image, and scikit-fmm.
 
 
