@@ -6,4 +6,3 @@ DeepACSON was developed by Ali Abdollahzadeh at the University of Eastern Finlan
 We used BM4D filter to denoise 3D-electron microscopy images:
 you can download BM4D v3.2 from https://www.cs.tut.fi/~foi/GCF-BM3D/
 
-
