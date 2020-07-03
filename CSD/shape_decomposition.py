@@ -513,48 +513,27 @@ def junction_correction(cropAx, parametrized_skel, main_junction_coordinates,
     return st_cross_sections, interpolated_skel, corrected_skeleton
 
 
-def object_analysis(obj_inx, obj_sz, final_skeleton):
+def object_analysis(obj, final_skeleton):
     
     decomposed_objs = []
     decomposed_skeletons = []
-    decomposed_quants = []        
-    
-    skel_length = np.array([len(i) for i in final_skeleton])
-    if max(skel_length) < 150:
-        return [obj_inx], decomposed_skeletons, decomposed_quants
-    
-    main_skeletons = skeleton_main_branch(final_skeleton)
         
-    if (len(final_skeleton) > 10) & (len(main_skeletons)!=0):
-        main_skeletons = main_skeletons[:1]
-    
-        
-    for obj_skel in main_skeletons:
-        
-        parametrized_skel = obj_skel['skeleton']
-        junction_coordinates = obj_skel['dec_nodes']
+    sub_skeletons = skeleton_main_branch(final_skeleton)
+                
+    for sub_skel in sub_skeletons:    
+        parametrized_skel = sub_skel['skeleton']
+        junction_coordinates = sub_skel['dec_nodes']
         
         if len(junction_coordinates) == 0:
-            
-            cropAx = np.zeros(obj_sz, dtype=np.bool)
-            for j in obj_inx:
-                cropAx[tuple(j)] = 1
-            
-            decomposed_objs.append(obj_inx), 
+            decomposed_objs.append(obj), 
             decomposed_skeletons.append(parametrized_skel)
             
         
         else:
             
-            corrected_obj = np.zeros(obj_sz, dtype=np.bool)    
-            for j in obj_inx:
-                corrected_obj[tuple(j)] = 1
-            
-            corrected_skeleton = obj_skel['skeleton']
-            
+            corrected_obj = np.array(list(obj))           
+            corrected_skeleton = sub_skel['skeleton']           
             for junction_coordinate in junction_coordinates:
-                
-                #print junction_coordinate
                 
                 st_cross_sections, interpolated_skel, corrected_skeleton = junction_correction(corrected_obj, corrected_skeleton, junction_coordinate, 
                                                                        g_radius=15, g_res=0.25, H_th=0.7, shift_impose=1, Euler_step_size=0.5)
@@ -583,7 +562,7 @@ def object_analysis(obj_inx, obj_sz, final_skeleton):
                         decomposed_skeletons.append(corrected_skeleton)
                                                 
                         break
-    return decomposed_objs, decomposed_skeletons, []
+    return decomposed_objs, decomposed_skeletons
     
     
 
