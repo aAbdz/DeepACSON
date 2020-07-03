@@ -34,7 +34,12 @@ import numpy as np
 from skeleton3D import skeleton
 
 fn = ./example/mAxon_mError.npy
-bw = np.load(fn)
+data = np.load(fn)
+
+obj_sz = data['objSz']
+obj_voxInd = data['objVoxInx']
+bw = np.zeros(obj_sz, dtype=np.uint8)
+for ii in obj_voxInd: bw[tuple(ii)]=1 
 skel = skeleton(bw)
 ```
 You can modify the code to define the shotest path either as
