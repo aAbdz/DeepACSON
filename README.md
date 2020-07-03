@@ -54,8 +54,9 @@ You can modify the code to define the shotest path either as
 - euler shortest path: sub-voxel precise 
 - discrete shortest path: more robust but voxel precise
 
-With the default values, one should be able to reproduce the results in ./results/skeleton_mAx.npy.
-You can also modify the code to exclude branches shorter than *length_threshold* value.
+and also to exclude branches shorter than *length_threshold* value.
+
+With the default values, one should be able to reproduce the results in ./results/skeleton_mAx.npy. The skeletonization of the example object, 2004x1243x180 voxels, takes about 9 mins on a machine with 2xIntel Xeon E5 2630 CPU 2.4 GHz with 512 GB RAM. 
 
 ### Cylindrical shape decomposition
 To apply CSD on a 3D voxel-based object, given its skeleton as *skel*, we have:
