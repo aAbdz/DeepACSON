@@ -43,7 +43,7 @@ URL http://arxiv.org/abs/1911.00571.
 
 Our implementation only requires:
 - numpy>=1.0.2 
-- scikit-fmm 2019.1.30
+- scikit-fmm
 
 ```python
 from skeleton3D import skeleton
