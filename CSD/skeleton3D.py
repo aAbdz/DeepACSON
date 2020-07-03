@@ -259,15 +259,10 @@ def skeleton(Ax):
         end_point = np.array(end_point,ndmin=2)
         shortest_line=euler_shortest_path(D,source_point,end_point,step_size=0.1)
         #shortest_line = discrete_shortest_path(D,end_point)
-        
-        #fig, ax = plt.subplots()
-        #ax.imshow(cropAx[:,:,0])
-        #ax.plot(shortest_line[:,1], shortest_line[:,0], '-', linewidth=2, color='firebrick')
             
         line_length=get_line_length(shortest_line)
         print(line_length)
 
-        # 4*maxD, 0.05*line_length
         if flag:
             length_threshold=min(40*maxD, 0.18*line_length)
             flag=False
@@ -291,12 +286,6 @@ def skeleton(Ax):
         final_skeleton=[]
     
     return final_skeleton
-
-
-#fig, ax = plt.subplots()
-#ax.imshow(cropAx[:,:,0])
-#for l in final_skeleton:
-#    ax.plot(l[:,1], l[:,0], '-', linewidth=2, color='firebrick')
 
 if __name__ == "__main__":    
     skeleton(sys.argv[1])
