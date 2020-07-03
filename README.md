@@ -33,7 +33,7 @@ Our implementation only requires:
 import numpy as np
 from skeleton3D import skeleton
 
-fn = ./Example/mAxon_mError.npy
+fn = ./example/mAxon_mError.npy
 bw = np.load(fn)
 skel = skeleton(bw)
 ```
