@@ -17,6 +17,22 @@ Install Elktronn as instructed in https://github.com/ELEKTRONN. The network can 
 ## Instance segmentation
 The cylindrical shape decomposition algorithm is currently supported for Python 2 and requires NumPy, SciPy, Scikit-image, and scikit-fmm.
 
+Due to the size of datasets, we provided examples as 3d-coordinates and their corresponding bounding box in dict files: 'objSz', 'objVoxInx'.
+
+The mAxon_mError file is an example of under-segmentation error, where two myelinated axons incorrectly were merged. The bounding box of this 3D object is 2004x1243x180, acquired at 50 nm x 50 nm x 50 nm resolution. To retrieve an object, load the coordinates as:
+
+```python
+import numpy as np
+
+fn = ./example/mAxon_mError.npy
+data = np.load(fn)
+
+obj_sz = data['objSz']
+obj_voxInd = data['objVoxInx']
+bw = np.zeros(obj_sz, dtype=np.uint8)
+for ii in obj_voxInd: bw[tuple(ii)]=1 
+```
+
 ### Skeletonization
 To skeletonize a 3D voxel-based object, we implemented the method from Hassouna & Farag (CVPR 2005); the method detects ridges in the distance field of the object surface. If you use skeleton3D in your research, please cite:
 
@@ -30,17 +46,7 @@ Our implementation only requires:
 - scikit-fmm 2019.1.30
 
 ```python
-import numpy as np
 from skeleton3D import skeleton
-
-fn = ./example/mAxon_mError.npy
-data = np.load(fn)
-
-obj_sz = data['objSz']
-obj_voxInd = data['objVoxInx']
-bw = np.zeros(obj_sz, dtype=np.uint8)
-for ii in obj_voxInd: bw[tuple(ii)]=1 
-
 skel = skeleton(bw)
 ```
 You can modify the code to define the shotest path either as
@@ -48,6 +54,7 @@ You can modify the code to define the shotest path either as
 - euler shortest path: sub-voxel precise 
 - discrete shortest path: more robust but voxel precise
 
+With the default values, you should 
 You can also modify the code to exclude branches shorter than *length_threshold* value.
 
 ### Cylindrical shape decomposition
