@@ -25,9 +25,17 @@ M. Hassouna and A. Farag, Robust centerline extraction framework using level set
 A. Abdollahzadeh, A. Sierra, J. Tohka, Cylindrical shape decomposition for 3D segmentation of tubular objects, arXiv:1911.00571v2 [cs.CV] (2019). 
 URL http://arxiv.org/abs/1911.00571.
 
-```
+Our implementation only requires:
+- numpy>=1.0.2 
+- scikit-fmm 2019.1.30
+
+```python
+import numpy as np
 from skeleton3D import skeleton
-skel = skeleton(BW)
+
+fn = ./Example/mAxon_mError.npy
+bw = np.load(fn)
+skel = skeleton(bw)
 ```
 You can modify the code to define the shotest path either as
 
@@ -39,13 +47,13 @@ You can also modify the code to exclude branches shorter than *length_threshold*
 ### Cylindrical shape decomposition
 To apply CSD on a 3D voxel-based object, given its skeleton as *skel*, we have:
 
-```
+```python
 from shape_decomposition import object_analysis
 decomposed_image, decomposed_skeleton = object_analysis(BW, skel)
 ```
 You can modify the code to define the code for *H_th* value, which lies in range [0, 1]. *H_th* is the similarity threshold between cross-sectional contours. 
 
-DeepACSON instance segmentation, i.e., the CSD algorithms, can be run for every 3D object, i.e., an axon, independently on a CPU core. Therefore, instance segmentation of *N* axons can be run in parallel, where *N* is the number of CPU cores assigned for the segmentation task.
+DeepACSON instance segmentation, i.e., the CSD algorithm, can be run for every 3D object, i.e., an axon, independently on a CPU core. Therefore, instance segmentation of *N* axons can be run in parallel, where *N* is the number of CPU cores assigned for the segmentation task.
 
 
 
