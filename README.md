@@ -20,4 +20,18 @@ Use the inference.py script for semantic segmentation of ultrastructures.
 # Instance segmentation
 The cylindrical shape decomposition algorithm is currently supported for Python 2 and requires NumPy, SciPy, Scikit-image, and scikit-fmm.
 
+To skeletonize a 3D binary object, we implemented the method from Hassouna & Farag (CVPR 2005); the method detects ridges in the distance field of the object surface.
+If you use skeleton3D in your research, please cite:
+
+M. Hassouna and A. Farag, Robust centerline extraction framework using level sets, DOI 10.1109/CVPR.2005.306
+
+A. Abdollahzadeh, A. Sierra, J. Tohka, Cylindrical shape decomposition for 3D segmentation of tubular objects, arXiv:1911.00571v2 [cs.CV] (2019). 
+URL http://arxiv.org/abs/1911.00571.
+
+```
+from skeleton3D import skeleton
+skel = skeleton(BW)
+```
+
+
 
