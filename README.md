@@ -54,7 +54,7 @@ You can modify the code to define the shotest path either as
 - euler shortest path: sub-voxel precise 
 - discrete shortest path: more robust but voxel precise
 
-With the default values, you should 
+With the default values, one should be able to reproduce the results in ./results/skeleton_mAx.npy.
 You can also modify the code to exclude branches shorter than *length_threshold* value.
 
 ### Cylindrical shape decomposition
