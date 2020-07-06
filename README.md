@@ -11,6 +11,8 @@ URL http://arxiv.org/abs/1911.00571.
 ## BM4D denoising
 We used BM4D filter to denoise 3D-electron microscopy images: you can download BM4D v3.2 from https://www.cs.tut.fi/~foi/GCF-BM3D/
 
+![alt text](<figs/filteringGIT.png>)
+
 ## Training and inference
 Install Elktronn as instructed in https://github.com/ELEKTRONN. The network can be trained with the train.py script, which expects .h5 files as training materials. Use the inference.py script for semantic segmentation of ultrastructures.
 
