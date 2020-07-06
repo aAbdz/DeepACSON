@@ -1,4 +1,3 @@
-
 # -*- coding: utf-8 -*-
 
 import numpy as np
@@ -14,7 +13,6 @@ from polar_interpolation import polar_interpolation
 import skfmm
 from scipy.interpolate import interp1d
 from matplotlib import path
-from cross_section_alpha import cross_section
 from coord_conv import cart2pol
 
 
@@ -514,12 +512,12 @@ def junction_correction(cropAx, parametrized_skel, main_junction_coordinates,
     return st_cross_sections, interpolated_skel, corrected_skeleton
 
 
-def object_analysis(obj, final_skeleton):
+def object_analysis(obj, skel):
     
     decomposed_objs = []
     decomposed_skeletons = []
         
-    sub_skeletons = skeleton_main_branch(final_skeleton)
+    sub_skeletons = skeleton_main_branch(skel)
                 
     for sub_skel in sub_skeletons:    
         parametrized_skel = sub_skel['skeleton']
@@ -565,3 +563,16 @@ def object_analysis(obj, final_skeleton):
                         break
     return decomposed_objs, decomposed_skeletons
     
+    
+
+
+
+
+
+
+
+
+
+
+
+
