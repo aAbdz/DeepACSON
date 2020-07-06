@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import sys
 import numpy as np
-sys.path.append('D:\\Matlab\\Proj_LowMag_CC\\axon_skeleton')
 from skeleton3D import get_line_length
 import collections
 
@@ -16,9 +14,10 @@ def skeleton_main_branch(skel):
     nodes_coord, branch_length = skeleton_info(skel)
     longest_branch = np.argmax(np.array(branch_length))
     
-    graph = detect_junctions(nodes_coord)
+    graph = form_graph(nodes_coord)
     graph_e = {i: [i*2, i*2+1] for i in range(n_branch)}
     graph_v = {i: i/2 for i in range(2*n_branch)} 
+    graph = rearrange_graph(graph, graph_v, graph_e)
     
     dec_junction = [i for i in graph if len(graph[i])>2]   
     dec_leaf = set()
@@ -62,6 +61,8 @@ def skeleton_main_branch(skel):
                 main_skeletons.append(obj)
                     
     return main_skeletons
+
+
 
 def cyclic_graph(g, rgraph_v, rgraph_e):
     
@@ -256,10 +257,10 @@ def end_points_cross_distance(end_points):
     return dist
 
 
-def detect_junctions(end_points):
+def form_graph(end_points):
     
     ep_cross_dist = end_points_cross_distance(end_points)
-    sz = ep_cross_dist.shape        
+    sz = ep_cross_dist.shape 
     ep_cross_dist[np.diag_indices(sz[0])] = np.inf
     for i in range(1, sz[0], 2):
         ep_cross_dist[i,i-1] = np.inf
@@ -290,6 +291,7 @@ def detect_fully_connected_graph(ep_cross_dist):
     return graph
 
 
+
 def fully_connected_tree(junction_eps, num_eps):
       
     graph = {i: [i+1] for i in range(0, num_eps, 2)} 
@@ -301,7 +303,10 @@ def fully_connected_tree(junction_eps, num_eps):
     visited = breadth_first_search(graph, root = 0)
     return visited, graph
 
+
+
 def breadth_first_search(graph, root): 
+    
     visited, queue = set(), collections.deque([root])
     while queue: 
         vertex = queue.popleft()
@@ -311,6 +316,24 @@ def breadth_first_search(graph, root):
                 queue.append(neighbour) 
     return visited
 
+
+
+def rearrange_graph(graph, graph_v, graph_e):
+    
+    for i in graph:
+        ngb =  set(graph[i])
+        if len(ngb)>1:
+            l_ngb = -1
+            while len(ngb) > l_ngb:
+                l_ngb = len(ngb)
+                nngb = ngb - set(graph_e[graph_v[i]])
+                for n in nngb:
+                    ngb |= set(graph[n]) - set(graph_e[graph_v[n]]) - set([i])
+                    
+            graph[i] = ngb
+    return graph
+
+            
         
 def order_branch(branch, junction, order):
     
@@ -346,41 +369,6 @@ def tangent_vector_sum(branch):
     vec_sum = np.sum(nTangVec,axis=0)
     vec_sum = vec_sum / np.linalg.norm(vec_sum)
     return vec_sum
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     
