@@ -1,3 +1,4 @@
+
 # -*- coding: utf-8 -*-
 
 import numpy as np
@@ -564,16 +565,3 @@ def object_analysis(obj, final_skeleton):
                         break
     return decomposed_objs, decomposed_skeletons
     
-    
-
-
-
-
-
-
-
-
-
-
-
-

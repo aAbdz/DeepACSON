@@ -24,7 +24,7 @@ The mAxon_mError file is an example of under-segmentation error, where two myeli
 ```python
 import numpy as np
 
-fn = ./example/mAxon_mError.npy
+fn = './example/mAxon_mError.npy'
 data = np.load(fn)
 
 obj_sz = data['objSz']
