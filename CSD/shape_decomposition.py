@@ -13,7 +13,6 @@ from polar_interpolation import polar_interpolation
 import skfmm
 from scipy.interpolate import interp1d
 from matplotlib import path
-from cross_section_alpha import cross_section
 from coord_conv import cart2pol
 
 
