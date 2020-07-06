@@ -518,49 +518,36 @@ def object_analysis(obj, skel):
     decomposed_skeletons = []
         
     sub_skeletons = skeleton_main_branch(skel)
-                
-    for sub_skel in sub_skeletons:    
-        parametrized_skel = sub_skel['skeleton']
-        junction_coordinates = sub_skel['dec_nodes']
         
-        if len(junction_coordinates) == 0:
-            decomposed_objs.append(obj), 
-            decomposed_skeletons.append(parametrized_skel)
-            
+    for s in sub_skeletons:
+        junction_coordinates = s['dec_nodes']
+        sub_skeleton = s['skeleton']
         
-        else:
+        dec_obj = obj.copy()
+        for junction_coordinate in junction_coordinates:
             
-            corrected_obj = np.array(list(obj))           
-            corrected_skeleton = sub_skel['skeleton']           
-            for junction_coordinate in junction_coordinates:
-                
-                st_cross_sections, interpolated_skel, corrected_skeleton = junction_correction(corrected_obj, corrected_skeleton, junction_coordinate, 
-                                                                       g_radius=15, g_res=0.25, H_th=0.7, shift_impose=1, Euler_step_size=0.5)
-                
-                if len(interpolated_skel) <= 10:
-                    continue
-                
-                interpolated_skel = np.array(interpolated_skel)
-                
-                filled_cs = filling_cross_sections(st_cross_sections, g_radius=15, g_res=0.25)
-                
-                corrected_obj = object_decomposition(corrected_obj, interpolated_skel, filled_cs, g_radius=15, g_res=0.25)
+            st_cross_sections, interpolated_skel, sub_skeleton = junction_correction(dec_obj, sub_skeleton, junction_coordinate, 
+                                                                   g_radius=15, g_res=0.25, H_th=0.7, shift_impose=1, Euler_step_size=0.5)
             
-            labeled_obj = label(corrected_obj, neighbors=4)
+            if len(interpolated_skel) <= 10: continue
+            
+            interpolated_skel = np.array(interpolated_skel)               
+            filled_cs = filling_cross_sections(st_cross_sections, g_radius=15, g_res=0.25)                
+            dec_obj = object_decomposition(dec_obj, interpolated_skel, filled_cs, g_radius=15, g_res=0.25)
+        
+            labeled_obj = label(dec_obj, neighbors=4)
             for region in regionprops(labeled_obj):
-                
-                if region.area>=len(corrected_skeleton):
+                if region.area>=len(sub_skeleton):
                     
                     obj = np.zeros(labeled_obj.shape, dtype=np.bool)
                     for coordinates in region.coords:
                         obj[coordinates[0], coordinates[1], coordinates[2]] = True
                     
-                    if detect_main_obj(obj, corrected_skeleton):
-                        
+                    if detect_main_obj(obj, sub_skeleton):  
                         decomposed_objs.append(region.coords)
-                        decomposed_skeletons.append(corrected_skeleton)
-                                                
+                        decomposed_skeletons.append(sub_skeleton)
                         break
+                    
     return decomposed_objs, decomposed_skeletons
     
     
