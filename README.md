@@ -29,7 +29,7 @@ The mAxon_mError file is an example of an under-segmentation error, where two my
 ```python
 import numpy as np
 
-fn = './example/mAxon_mError.npy'
+fn = './example/mAxon_mError.npz'
 data = np.load(fn)
 
 obj_sz = data['objSz']
@@ -68,9 +68,24 @@ To apply CSD on a 3D voxel-based object, given its skeleton as *skel*, we have:
 
 ```python
 from shape_decomposition import object_analysis
-decomposed_image, decomposed_skeleton = object_analysis(BW, skel)
+decomposed_image, decomposed_skeleton = object_analysis(bw, skel)
 ```
-decomposed_image is a list, which length is equal to the number of decomposition components. The bounding box for each component is equal to the bounding box of BW image, the input object. You can modify the code to define the code for *H_th* value, which lies in the range [0, 1]. *H_th* is the similarity threshold between cross-sectional contours. In ./results, we provided dec_obj1 and dec_obj2 for the mAxon_mError file with an under-segmentation error. Due to the size of datasets, we provided the decomposed objects as 3d-coordinates.
+decomposed_image is a list, which length is equal to the number of decomposition components. The bounding box for each component is equal to the bounding box of BW image, the input object. In ./results, we provided dec_obj1 and dec_obj2 for the mAxon_mError file with an under-segmentation error. Due to the size of datasets, we provided the decomposed objects as 3d-coordinates and their corresponding bounding box in dict files: 'objSz', 'objVoxInx'.
+
+```python
+import numpy as np
+
+fn = './example/dec_obj1.npz'
+data = np.load(fn)
+
+obj_sz = data['objSz']
+obj_voxInd = data['objVoxInx']
+obj1 = np.zeros(obj_sz, dtype=np.uint8)
+for ii in obj_voxInd: obj1[tuple(ii)]=1
+```
+The same holds for obj2. 
+
+You can modify the code to define *H_th* value, which lies in the range [0, 1]. *H_th* is the similarity threshold between cross-sectional contours. Also, setting 'ub' and 'lb', where 'ub>lb' also modifies the zone of interest.
 
 DeepACSON instance segmentation, i.e., the CSD algorithm, can be run for every 3D object, i.e., an axon, independently on a CPU core. Therefore, instance segmentation of *N* axons can be run in parallel, where *N* is the number of CPU cores assigned for the segmentation task.
 
