@@ -9,13 +9,15 @@ A. Abdollahzadeh, A. Sierra, J. Tohka, Cylindrical shape decomposition for 3D se
 URL http://arxiv.org/abs/1911.00571.
 
 ## BM4D denoising
-We used the BM4D filter to denoise 3D-electron microscopy images: one can download BM4D v3.2 from https://www.cs.tut.fi/~foi/GCF-BM3D/.
+We used the BM4D filter to denoise 3D-electron microscopy images: one can download BM4D v3.2 from https://www.cs.tut.fi/~foi/GCF-BM3D/. The BM4D algorithm can be run in its low-complexity mode to reduce the computation time. To conform to RAM requirements or enabling parallel denoising on CPU clusters divide the big 3D-EM volumes into non-overlapping patches.
 
 <img src="figs/filteringGIT.png" width="200" height="200" />
 
 
 ## Training and inference
-Install Elktronn as instructed in https://github.com/ELEKTRONN. The network can be trained with the train.py script, which expects .h5 files as training materials. Use the inference.py script for the semantic segmentation of ultrastructures.
+Install Elktronn as instructed in https://github.com/ELEKTRONN. The network can be trained with the train.py script, which expects .h5 files as training materials. Use the inference.py script for the semantic segmentation of ultrastructures. 
+
+We provided a pre-trained network in ./models/pretrained_mAxon.mdl, as in ./train.py, to be applied to BM4D denoised electron microscopy images. The network was trained on 3D-EM volumes of 50 nm x 50 nm x 50 nm resolution. The semantic segmentation includes myelin, intra-axonal space of myelinated axons, and mitochondria.  
 
 <img src="figs/ultraStrucMaps.png" width="200" height="200" />
 
