@@ -85,7 +85,7 @@ for ii in obj_voxInd: obj1[tuple(ii)]=1
 ```
 The same holds for obj2. 
 
-You can modify the code to define *H_th* value, which lies in the range [0, 1]. *H_th* is the similarity threshold between cross-sectional contours. Also, setting 'ub' and 'lb', where 'ub>lb' also modifies the zone of interest.
+You can modify the code to define *H_th* value, which lies in the range [0, 1]. *H_th* is the similarity threshold between cross-sectional contours. Also, setting *ub* and *lb*, where *ub>lb* also modifies the zone of interest.
 
 DeepACSON instance segmentation, i.e., the CSD algorithm, can be run for every 3D object, i.e., an axon, independently on a CPU core. Therefore, instance segmentation of *N* axons can be run in parallel, where *N* is the number of CPU cores assigned for the segmentation task.
 
