@@ -11,8 +11,8 @@ def rotate_vector(vector, rot_mat):
 
 def rotation_matrix_3D(vector, theta):
     
-    "counterclockwise rotation about a unit vector by theta radians"
-    "Euler-Rodrigues formula"
+    """counterclockwise rotation about a unit vector by theta radians using
+    Euler-Rodrigues formula: https://en.wikipedia.org/wiki/Euler-Rodrigues_formula"""
 
     a=np.cos(theta/2.0)
     b,c,d=-vector*np.sin(theta/2.0)
