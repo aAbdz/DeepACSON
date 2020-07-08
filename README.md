@@ -22,8 +22,14 @@ We provided a pre-trained network in ./models/pretrained_mAxon.mdl, as in ./trai
 <img src="figs/ultraStrucMaps.png" width="200" height="200" />
 
 ## Instance segmentation
-The cylindrical shape decomposition algorithm is currently supported for Python 2 and requires NumPy, SciPy, Scikit-image, and scikit-fmm.
+The cylindrical shape decomposition (CSD) algorithm in DeepACSON is currently supported for Python 2.
 
+## Installation
+The CSD algorithm requires no installation. To install the necessary dependencies, run:
+
+```python
+pip install -r requirements.txt
+```
 Due to the size of datasets, we provided examples as 3d-coordinates and their corresponding bounding box in dict files: 'objSz', 'objVoxInx'.
 
 The mAxon_mError file is an example of an under-segmentation error, where two myelinated axons incorrectly were merged. The bounding box of this 3D object is 2004x1243x180, acquired at 50 nm x 50 nm x 50 nm resolution. To retrieve an object, load the coordinates as:
@@ -43,14 +49,12 @@ for ii in obj_voxInd: bw[tuple(ii)]=1
 ### Skeletonization
 To skeletonize a 3D voxel-based object, we implemented the method from Hassouna & Farag (CVPR 2005); the method detects ridges in the distance field of the object surface. If you use skeleton3D in your research, please cite:
 
-M. Hassouna and A. Farag, Robust centerline extraction framework using level sets, DOI 10.1109/CVPR.2005.306
+- M. Hassouna and A. Farag, Robust centerline extraction framework using level sets, DOI 10.1109/CVPR.2005.306
 
-A. Abdollahzadeh, A. Sierra, J. Tohka, Cylindrical shape decomposition for 3D segmentation of tubular objects, arXiv:1911.00571v2 [cs.CV] (2019). 
+- A. Abdollahzadeh, A. Sierra, J. Tohka, Cylindrical shape decomposition for 3D segmentation of tubular objects, arXiv:1911.00571v2 [cs.CV] (2019). 
 URL http://arxiv.org/abs/1911.00571.
 
-Our implementation only requires:
-- numpy>=1.0.2 
-- scikit-fmm
+The implementation only requires numpy and scikit-fmm
 
 ```python
 from skeleton3D import skeleton
