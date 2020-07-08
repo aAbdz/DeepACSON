@@ -19,7 +19,7 @@ Install Elktronn as instructed in https://github.com/ELEKTRONN. The network can 
 
 We provided a pre-trained network in ./models/pretrained_mAxon.mdl, as in ./train.py, to be applied to BM4D denoised electron microscopy images. The network was trained on 3D-EM volumes of 50 nm x 50 nm x 50 nm resolution. The semantic segmentation includes myelin, intra-axonal space of myelinated axons, and mitochondria.  
 
-- If you want to skip installing ELEKTRONN, we included a 3D U-Net and an FCN written for PyTorch in ./models. Please, install pytorch>=1.5.0.
+- If you want to skip installing ELEKTRONN, we included a 3D U-Net with residual blocks and a light FCN, written for PyTorch, in ./models. Please, install pytorch>=1.5.0.
 
 <img src="figs/ultraStrucMaps.png" width="200" height="200" />
 
