@@ -1,9 +1,4 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""
-@author: aliabd
-"""
-
 
 import torch
 import torch.nn as nn
