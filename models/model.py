@@ -117,6 +117,18 @@ class UNet3D(nn.Module):
         return out
 
     
+class basicBlock_convRelu(nn.Module):
+    def __init__(self, in_channels, out_channels, kernel_size, padding, stride):
+        super().__init__()
+        self.basic_block = nn.Sequential(
+            nn.Conv3d(in_channels, out_channels, kernel_size, stride, padding),
+            nn.ReLU()
+        )
+
+    def forward(self, x):
+        return self.basic_block(x)
+    
+    
 class FCN(nn.Module):
     def __init__(self, n_channels, n_classes):
         super().__init__()
@@ -124,10 +136,10 @@ class FCN(nn.Module):
         self.n_channels = n_channels
         self.n_classes = n_classes
     
-        self.conv1 = basicBlock(n_channels, 64, kernel_size=5, stride=1, padding=2)
-        self.conv2 = basicBlock(64, 128, kernel_size=3, stride=1, padding=1)
-        self.conv3 = basicBlock(128, 256, kernel_size=3, stride=1, padding=1)
-        self.conv4 = basicBlock(256, 512, kernel_size=3, stride=1, padding=1)
+        self.conv1 = basicBlock_convRelu(n_channels, 64, kernel_size=5, stride=1, padding=2)
+        self.conv2 = basicBlock_convRelu(64, 128, kernel_size=3, stride=1, padding=1)
+        self.conv3 = basicBlock_convRelu(128, 256, kernel_size=3, stride=1, padding=1)
+        self.conv4 = basicBlock_convRelu(256, 512, kernel_size=3, stride=1, padding=1)
         self.conv_last = nn.Conv3d(512, n_classes, kernel_size=1)
         self.softmax = nn.Sigmoid()
         
@@ -141,13 +153,5 @@ class FCN(nn.Module):
         out = self.conv_last(x4)
         out = self.softmax(out)
         return out    
-    
-    
-    
-    
-
-    
-    
-    
     
     
