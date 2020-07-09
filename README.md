@@ -1,6 +1,11 @@
 # DeepACSON
 Automated Segmentation of White Matter in 3D Electron Microscopy
 
+Flowchart of the DeepACSON segmentation of myelinated axons:
+
+<img src="figs/flowchart_g.png" width="260" height="200" />
+
+
 DeepACSON was developed by Ali Abdollahzadeh at the University of Eastern Finland to trace the entirety of myelinated axons in low-resolution, large field-of-view, 3D electron microscopy images of white matter.
 
 A. Abdollahzadeh, I. Belevich, E. Jokitalo, A. Sierra, J. Tohka, DeepACSON: Automated Segmentation of White Matter in 3D Electron Microscopy, bioRxivdoi:https://doi.org/10.1101/828541.
