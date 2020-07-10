@@ -6,7 +6,7 @@ from scipy.interpolate import RegularGridInterpolator as rgi
 from unit_tangent_vector import unit_tangent_vector
 from hausdorff_distance import hausdorff_distance
 from skimage.measure import label, regionprops
-from skeleton_pruning import skeleton_main_branch
+from skeleton_decomposition import skeleton_main_branch
 import pylab as plt
 from polar_parametrization import polar_parametrization
 from polar_interpolation import polar_interpolation
