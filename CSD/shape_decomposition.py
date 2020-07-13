@@ -102,7 +102,7 @@ def tangent_planes_to_zone_of_interest(cropAx, parametrized_skel,
         
         bound = boundary_parametrization(bw_cross_section)
         
-        if test_boundary_parametrization(bound) == False:
+        if test_boundary_parametrization(bound, c_mesh) == False:
             s_inx = s_inx+direction
             continue
             
@@ -110,7 +110,7 @@ def tangent_planes_to_zone_of_interest(cropAx, parametrized_skel,
         #fig, ax=plt.subplots() 
         #ax.plot(bound[:,1], bound[:,0], '-', linewidth=2, color='black')
         if count==1:
-            m_curve = mean_curve(bound, bound, 2, 0)            
+            m_curve = mean_curve(bound, bound, 2, c_mesh, 0)            
             max_radius = np.max(np.sum((m_curve-np.array(x.shape)/2)**2, axis=1)**0.5)
             
             p_inx = s_inx
@@ -125,7 +125,7 @@ def tangent_planes_to_zone_of_interest(cropAx, parametrized_skel,
             d_ratio = np.true_divide(H_dist, (H_dist+max_radius))                
                 
             if d_ratio<H_th:
-                m_curve = mean_curve(bound, m_curve, count, 0)
+                m_curve = mean_curve(bound, m_curve, count, c_mesh, 0)
                 max_radius = g_res*np.max(np.sum((m_curve-np.array(x.shape)/2)**2, axis=1)**0.5)
                 
                 p_inx = s_inx
@@ -141,11 +141,11 @@ def tangent_planes_to_zone_of_interest(cropAx, parametrized_skel,
     return p_inx, p_bound, p_shiftX, p_shiftY
     
     
-def test_boundary_parametrization(bound):
+def test_boundary_parametrization(bound, c_mesh):
     
     flag = True
-    p_bound = polar_parametrization(bound)
-    r,phi = cart2pol(p_bound[:,1]-60, p_bound[:,0]-60)
+    p_bound = polar_parametrization(bound, c_mesh)
+    r,phi = cart2pol(p_bound[:,1]-c_mesh, p_bound[:,0]-c_mesh)
     s_phi = phi; s_phi[1:] = phi[1:] + 0.0001
     sign_change = np.where((s_phi[1:]*s_phi[:-1])<0)[0]   
     if len(sign_change) == 0:
@@ -374,11 +374,11 @@ def boundary_parametrization(bw):
     
 def mean_curve(curve1, curve2, num_samp, c_mesh, vis):
 
-    curve1 = polar_parametrization(curve1)
+    curve1 = polar_parametrization(curve1, c_mesh)
     curve1 = polar_interpolation(curve1, c_mesh)
     
     if num_samp==2:
-        curve2=polar_parametrization(curve2)  
+        curve2=polar_parametrization(curve2, c_mesh)  
         curve2=polar_interpolation(curve2, c_mesh)
     
     m_curve=np.true_divide(np.sum((curve1,(num_samp-1)*curve2),axis=0),num_samp)
@@ -498,7 +498,7 @@ def junction_correction(cropAx, parametrized_skel, main_junction_coordinates,
     if len(bound2) == 0:
         curve2 = c_mesh * np.ones((c_mesh,2), dtype=np.int)
     else:    
-        curve2 = polar_parametrization(bound2)  
+        curve2 = polar_parametrization(bound2, c_mesh)  
         curve2 = polar_interpolation(curve2, c_mesh)
     
     if shift_impose:
