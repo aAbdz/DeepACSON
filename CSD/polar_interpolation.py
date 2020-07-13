@@ -4,9 +4,9 @@ import numpy as np
 from coord_conv import cart2pol, pol2cart
 from scipy.interpolate import interp1d
 
-def polar_interpolation(curve):
+def polar_interpolation(curve, c_mesh):
    
-    r,phi = cart2pol(curve[:,1]-60,curve[:,0]-60)
+    r,phi = cart2pol(curve[:,1]-c_mesh,curve[:,0]-c_mesh)
     
     s_phi = phi; s_phi[1:] = phi[1:] + 0.0001
     sign_change=np.where((s_phi[1:]*s_phi[:-1])<0)[0]   
@@ -35,6 +35,6 @@ def polar_interpolation(curve):
     interp_rho=f(interp_phi)
     
     x,y=pol2cart(interp_rho,interp_phi)
-    curve=np.array([y+60,x+60]).T
+    curve=np.array([y+c_mesh,x+c_mesh]).T
     return curve
  
