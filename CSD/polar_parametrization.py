@@ -3,9 +3,9 @@
 import numpy as np
 from coord_conv import cart2pol, pol2cart
 
-def polar_parametrization(curve):
+def polar_parametrization(curve, c_mesh):
 
-    r,phi = cart2pol(curve[:,1]-60,curve[:,0]-60)
+    r,phi = cart2pol(curve[:,1]-c_mesh,curve[:,0]-c_mesh)
     
     s=phi<0 
     s_inx=np.where(s)[0]
@@ -36,5 +36,5 @@ def polar_parametrization(curve):
         nphi=np.delete(nphi,over_st_point)
 
     x,y=pol2cart(nr,nphi)
-    curve=np.array([y+60,x+60]).T
+    curve=np.array([y+c_mesh,x+c_mesh]).T
     return curve
