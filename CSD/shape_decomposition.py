@@ -23,6 +23,9 @@ def tangent_planes_to_zone_of_interest(cropAx, parametrized_skel,
     sz = cropAx.shape
     x, y = np.mgrid[-g_radius:g_radius:g_res, -g_radius:g_radius:g_res]
     z = np.zeros_like(x)
+    
+    c_mesh = (2*g_radius)/(2*g_res)
+    
     xyz = np.array([np.ravel(x), np.ravel(y), np.ravel(z)]).T
     
     tangent_vecs = unit_tangent_vector(parametrized_skel)   
@@ -369,14 +372,14 @@ def boundary_parametrization(bw):
     return bound
 
     
-def mean_curve(curve1, curve2, num_samp, vis):
+def mean_curve(curve1, curve2, num_samp, c_mesh, vis):
 
     curve1 = polar_parametrization(curve1)
-    curve1 = polar_interpolation(curve1)
+    curve1 = polar_interpolation(curve1, c_mesh)
     
     if num_samp==2:
         curve2=polar_parametrization(curve2)  
-        curve2=polar_interpolation(curve2)
+        curve2=polar_interpolation(curve2, c_mesh)
     
     m_curve=np.true_divide(np.sum((curve1,(num_samp-1)*curve2),axis=0),num_samp)
     
@@ -484,18 +487,19 @@ def junction_correction(cropAx, parametrized_skel, main_junction_coordinates,
                                                                                 s_inx, e_inx, g_radius, g_res, shift_impose, -1, H_th)
     point2 = parametrized_skel[p_inx2]
     
-      
+    c_mesh = (2*g_radius)/(2*g_res)
+    
     if len(bound1) == 0:
-        curve1 = 60 * np.ones((60,2), dtype=np.int)
+        curve1 = c_mesh * np.ones((c_mesh,2), dtype=np.int)
     else:
-        curve1 = polar_parametrization(bound1)
-        curve1 = polar_interpolation(curve1)
+        curve1 = polar_parametrization(bound1, c_mesh)
+        curve1 = polar_interpolation(curve1, c_mesh)
     
     if len(bound2) == 0:
-        curve2 = 60 * np.ones((60,2), dtype=np.int)
+        curve2 = c_mesh * np.ones((c_mesh,2), dtype=np.int)
     else:    
         curve2 = polar_parametrization(bound2)  
-        curve2 = polar_interpolation(curve2)
+        curve2 = polar_interpolation(curve2, c_mesh)
     
     if shift_impose:
         curve1 = curve1 - np.array([shiftY1, shiftX1])
