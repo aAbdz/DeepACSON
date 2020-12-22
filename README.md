@@ -1,6 +1,8 @@
 # DeepACSON
 Automated Segmentation of White Matter in 3D Electron Microscopy
 
+URL https://zenodo.org/badge/DOI/10.5281/zenodo.4384624.svg
+
 Flowchart of the DeepACSON segmentation of myelinated axons:
 
 <img src="figs/flowchart_g.png" width="260" height="200" />
